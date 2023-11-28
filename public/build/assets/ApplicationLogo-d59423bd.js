@@ -1,0 +1,1 @@
+import{_ as e}from"./_plugin-vue_export-helper-c27b6911.js";import{o as s,j as n}from"./app-ece2a1fe.js";const r={},t=["src"];function c(o,a){return s(),n("img",{src:o.route("index")+"/assets/img/saijaan.png",alt:"Logo"},null,8,t)}const m=e(r,[["render",c]]);export{m as A};
