@@ -73,6 +73,7 @@
         @else
             <!-- Styles -->
             <link href="{{ asset('vendor/mazer/assets/compiled/css/app.css') }}" rel="stylesheet"  />
+            <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/pretty-print-json@2.0/dist/css/pretty-print-json.css>
 
             <!-- Scripts -->
             <script src="{{ asset('vendor/mazer/assets/extensions/jquery/jquery.min.js') }}" crossorigin="anonymous" defer></script>
@@ -84,6 +85,8 @@
             <script src="{{ asset('vendor/mazer/assets/extensions/choices.js/public/assets/scripts/choices.js') }}" crossorigin="anonymous" defer></script>
             <script src="{{ asset('vendor/mazer/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}" crossorigin="anonymous" defer></script>
             <script src="{{ asset('vendor/mazer/assets/compiled/js/app.js') }}" crossorigin="anonymous" defer></script>
+
+            <script src=https://cdn.jsdelivr.net/npm/pretty-print-json@2.0/dist/pretty-print-json.min.js></script>
         @endif
 
         <!-- Scripts -->

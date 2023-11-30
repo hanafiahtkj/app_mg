@@ -42,7 +42,11 @@ class HomeController extends Controller
     public function verifikasi($id)
     {
         $transaction = Transaction::with('payable')->where('id', $id)->first();
-        return Inertia::modal('Admin/Verifikasi', ['transaction' => $transaction])
+        return Inertia::modal('Admin/Verifikasi', [
+            'balance' => $transaction->payable->balanceFloat,
+            'amount' => $transaction->amount_float,
+            'transaction' => $transaction
+        ])
             ->baseRoute('admin.index');
     }
 

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:super-admin'])->group(function () {
     Route::prefix('admin123')
         ->namespace('App\Http\Controllers\Admin')
         ->name('admin.')

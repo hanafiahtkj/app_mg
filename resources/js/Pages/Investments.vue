@@ -29,6 +29,7 @@ const form = useForm({
     duration: '',
     amount: 0,
 });
+
 const formatCurrency = (value) => {
     const decimalCount = (value.toString().split('.')[1] || '').length;
     return accounting.formatMoney(value, {

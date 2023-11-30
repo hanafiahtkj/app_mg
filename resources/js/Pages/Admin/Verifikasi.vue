@@ -5,10 +5,14 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { useModal } from "momentum-modal"
 import { Head, Link, useForm, router, usePage } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
+import accounting from 'accounting';
+// import { prettyPrintJson } from 'pretty-print-json';
 
 const { show, close, redirect } = useModal()
 
 const props = defineProps({
+    balance: Number,
+    amount: Number,
     transaction : {
         type : Object,
     },
@@ -19,6 +23,16 @@ const props = defineProps({
 
 let modal;
 let events;
+
+const formatCurrency = (value) => {
+    const decimalCount = (value.toString().split('.')[1] || '').length;
+    return accounting.formatMoney(value, {
+        symbol: '',   // Tidak menampilkan simbol mata uang
+        precision: decimalCount || 0,  // Menampilkan 2 angka di belakang koma
+        thousand: ',', // Menyusun ribuan dengan titik
+        decimal: '.',  // Menyusun desimal dengan koma
+    });
+};
 
 const form = useForm({
     uuid: props.transaction.uuid,
@@ -44,6 +58,9 @@ const submit = () => {
 
 onMounted(() => {
 
+    const elem = document.getElementById('transaction');
+    elem.innerHTML = prettyPrintJson.toHtml(props.transaction);
+
     modal = new bootstrap.Modal(document.getElementById('inlineForm'));
     modal.show();
 
@@ -55,7 +72,7 @@ onMounted(() => {
 <template>
     <form @submit.prevent="submit" autocomplete="off" novalidate>
         <div class="modal fade text-left" id="inlineForm" tabindex="-1" aria-labelledby="myModalLabel33" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel33">Verifikasi</h4>
@@ -63,8 +80,14 @@ onMounted(() => {
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        <pre>{{ transaction }}</pre>
+                    <div class="modal-body p-4">
+                        <h5>#Balance : {{ formatCurrency(balance) }}</h5>
+                        <h5>#Amount : {{ formatCurrency(amount) }}</h5>
+                        <div class="card m-0 mt-4" style="background-color: #f6f8fb;">
+                            <div class="card-body">
+                                <pre id="transaction" class="json-container mb-0"></pre>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer" style="background-color: #f6f8fb;">
                         <button type="button" class="btn bg-white btn-outline-default border me-auto" data-bs-dismiss="modal" aria-label="Close">
