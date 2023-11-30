@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import PasswordInput from '@/Components/PasswordInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref, onMounted, watch } from 'vue';
 
@@ -90,12 +91,17 @@ onMounted(() => {
                                 <div class="form-group basic">
                                     <div class="input-wrapper">
                                         <label class="label" for="password1">Password</label>
-                                        <input type="password" class="form-control" id="password1" autocomplete="off"
-                                        :class="{ 'is-invalid': form.errors.password }" placeholder="Your password" v-model="form.password">
-                                        <i class="clear-input">
-                                            <ion-icon name="close-circle"></ion-icon>
-                                        </i>
-                                        <div class="invalid-feedback">{{ form.errors.password }}</div>
+                                        <div class="input-group">
+                                            <input
+                                            :type="showPassword ? 'text' : 'password'"
+                                            class="form-control" id="password1" autocomplete="off"
+                                            :class="{ 'is-invalid': form.errors.password }" placeholder="Your password" v-model="form.password">
+                                            <span class="input-group-text" @click="showPassword = !showPassword" style="font-size: 24px;">
+                                                <ion-icon name="eye" v-if="!showPassword"></ion-icon>
+                                                <ion-icon name="eye-off" v-if="showPassword"></ion-icon>
+                                            </span>
+                                            <div class="invalid-feedback">{{ form.errors.password }}</div>
+                                        </div>
                                     </div>
                                 </div>
 

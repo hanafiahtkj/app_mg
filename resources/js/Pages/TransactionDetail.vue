@@ -4,6 +4,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref, reactive, onMounted, computed } from 'vue';
 import accounting from 'accounting';
 import { format, parseISO } from 'date-fns';
+import ClipboardJS from 'clipboard';
 
 const props = defineProps({
     uuid: String,
@@ -13,10 +14,20 @@ const props = defineProps({
 });
 
 const copyToClipboard = (value) => {
-    // Menggunakan Clipboard API untuk menyalin teks ke clipboard
-    navigator.clipboard.writeText(value);
-    // Menampilkan pesan notifikasi atau sejenisnya (misalnya menggunakan library toast)
-    toastbox('toast-copy');
+    const clipboard = new ClipboardJS('.copy-button', {
+        text: function() {
+            return value;
+        }
+    });
+
+    clipboard.on('success', function(e) {
+        toastbox('toast-copy');
+        e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+        console.error('Error copying to clipboard:', e.action);
+    });
 }
 
 const formatDate = (dateString) => {
@@ -216,7 +227,7 @@ onMounted(() => {
                     </div>
                     <h2 class="mb-2">Scan the QR Code</h2>
                     <p class="mb-2">
-                        9010001001234 <a href="javascript:void(0)" @click="copyToClipboard('9010001001234')"><ion-icon name="copy-outline"></ion-icon></a>
+                        9010001001234 <a href="javascript:void(0)" class="copy-button" @click="copyToClipboard('9010001001234')"><ion-icon name="copy-outline"></ion-icon></a>
                     </p>
                     <p>
                         If you have already made the payment, please click the Payment Confirmation button below.
