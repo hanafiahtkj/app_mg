@@ -36,7 +36,7 @@ class InvestmentController extends Controller
         return $currentInvestments = DB::table('investments')
             ->where('start_date', '<=', now())
             ->where('end_date', '>=', now())
-            ->where('user_id', '<=', Auth::user()->id)
+            ->where('user_id', '=', Auth::user()->id)
             ->count();
     }
 }
