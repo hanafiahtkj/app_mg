@@ -69,7 +69,7 @@ const submit = () => {
 
         },
         onSuccess: () =>  {
-            toastbox('toast-success', 2000)
+            toastbox('toast-success1', 2000)
             investmentActionSheet.hide();
         }
     });
@@ -256,7 +256,7 @@ onMounted(() => {
     </div>
     <!-- * App Capsule -->
 
-    <div id="toast-success" class="toast-box toast-center">
+    <div id="toast-success1" class="toast-box toast-center">
         <div class="in">
             <ion-icon name="checkmark-circle" class="text-success"></ion-icon>
             <div class="text">
