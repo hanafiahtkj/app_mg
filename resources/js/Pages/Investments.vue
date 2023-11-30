@@ -152,6 +152,7 @@ onMounted(() => {
                 <blockquote class="blockquote my-3 bg-secondary">
                     <p class="my-0" style="font-size: 15px;">Your current level is <mark>{{ level.name }}</mark> You can only make a maximum of {{ level.max_investment }} investments.For more information, click on the following link: <Link :href="route('level')"><strong>Level</strong></Link></p>
                     <div class="transparent mt-4" v-show="currentInvestments < level.max_investment">
+                        curret: {{ currentInvestments }}, max: {{ level.max_investment }}
                         <button type="buttom" class="btn btn-warning btn-block" data-bs-toggle="modal" data-bs-target="#investmentActionSheet"><ion-icon name="add-outline"></ion-icon> Add investment</button>
                     </div>
                 </blockquote>
