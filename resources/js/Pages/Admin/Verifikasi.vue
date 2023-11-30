@@ -83,6 +83,7 @@ onMounted(() => {
                     <div class="modal-body p-4">
                         <h5>#Balance : {{ formatCurrency(balance) }}</h5>
                         <h5>#Amount : {{ formatCurrency(amount) }}</h5>
+                        <h5 v-if="transaction.type == 'deposit'">#TXHASH : {{ transaction.meta.txhash ?? '-' }}</h5>
                         <div class="card m-0 mt-4" style="background-color: #f6f8fb;">
                             <div class="card-body">
                                 <pre id="transaction" class="json-container mb-0"></pre>
