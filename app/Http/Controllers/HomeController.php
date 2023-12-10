@@ -39,7 +39,7 @@ class HomeController extends Controller
             'income'  => $totalIncome,
             'withdraw'=> $totalWithdraw,
             'referallCount' => count($user->referrals),
-            'level' => $user->level->name,
+            'level' => $user->level,
             'coinsMarkets' => $this->coinsMarkets(),
         ]);
     }

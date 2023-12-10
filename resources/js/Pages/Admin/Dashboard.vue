@@ -16,6 +16,7 @@ const page = usePage()
 defineProps({
     deposit : Number,
     withdraw : Number,
+    earning: Number,
     user : Number
 });
 
@@ -209,8 +210,8 @@ onMounted(() => {
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                    <h6 class="text-muted font-semibold">###</h6>
-                                    <h6 class="font-extrabold mb-0">0</h6>
+                                    <h6 class="text-muted font-semibold">Earning User </h6>
+                                    <h6 class="font-extrabold mb-0">{{ formatCurrency(earning) }}</h6>
                                 </div>
                             </div>
                         </div>

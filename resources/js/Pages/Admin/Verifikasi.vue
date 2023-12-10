@@ -36,6 +36,7 @@ const formatCurrency = (value) => {
 
 const form = useForm({
     uuid: props.transaction.uuid,
+    txhash: ''
 });
 
 const submit = () => {
@@ -83,7 +84,15 @@ onMounted(() => {
                     <div class="modal-body p-4">
                         <h5>#Balance : {{ formatCurrency(balance) }}</h5>
                         <h5>#Amount : {{ formatCurrency(amount) }}</h5>
-                        <h5 v-if="transaction.type == 'deposit'">#TXHASH : {{ transaction.meta.txhash ?? '-' }}</h5>
+                        <h5>#TXHASH : {{ transaction.meta.txhash ?? '-' }}</h5>
+                        <template v-if="transaction.type == 'withdraw'">
+                            <h6>Txhash</h6>
+                            <div class="form-group">
+                                <input id="name" type="text" placeholder="txhash" class="form-control"
+                                :class="{ 'is-invalid': form.errors.txhash }" v-model="form.txhash" autocomplete="off">
+                                <div class="invalid-feedback">{{ form.errors.txhash }}</div>
+                            </div>
+                        </template>
                         <div class="card m-0 mt-4" style="background-color: #f6f8fb;">
                             <div class="card-body">
                                 <pre id="transaction" class="json-container mb-0"></pre>
@@ -95,7 +104,7 @@ onMounted(() => {
                             <i class="bx bx-x d-block d-sm-none"></i>
                             <span class="d-none d-sm-block">Close</span>
                         </button>
-                        <button type="submit" class="btn btn-primary ms-1" :disabled="form.processing">
+                        <button type="submit" class="btn btn-primary ms-1" :disabled="form.processing || (!transaction.meta.txhash && transaction.type == 'deposit')">
                             <i class="bx bx-check d-block d-sm-none"></i>
                             <span class="d-none d-sm-block">Verif</span>
                         </button>

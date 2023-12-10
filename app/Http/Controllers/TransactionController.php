@@ -24,7 +24,8 @@ class TransactionController extends Controller
             'amount' => [
                 'required',
                 'numeric',
-                'not_in:0',
+                // 'not_in:0',
+                'min:1', // 1 USDT
             ],
         ]);
 

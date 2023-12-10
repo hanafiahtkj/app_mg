@@ -12,6 +12,9 @@ const props = defineProps({
     durations: {
         type: Object
     },
+    userLevels: {
+        type: Object
+    },
     level : String,
 });
 
@@ -145,97 +148,21 @@ onMounted(() => {
             <!-- <div class="section-title">Level List</div> -->
 
             <div class="accordion" id="accordionExample5">
-                <div class="accordion-item">
-                    <h2 class="accordion-header bg-primary">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordiond1" aria-expanded="false">
-                            Primary
-                        </button>
-                    </h2>
-                    <div id="accordiond1" class="accordion-collapse collapse" data-bs-parent="#accordionExample5" style="">
-                        <div class="accordion-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at augue eleifend,
-                            lacinia ex quis, condimentum erat. Nullam a ipsum lorem.
+                <template v-for="item in userLevels" :key="item.id">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#accordiond' + item.id" aria-expanded="false" :style="{ backgroundColor: item.color + ' !important' }">
+                                {{ item.name }}
+                            </button>
+                        </h2>
+                        <div :id="'accordiond' + item.id" class="accordion-collapse collapse show" data-bs-parent="#accordionExample5" style="">
+                            <div class="accordion-body">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at augue eleifend,
+                                lacinia ex quis, condimentum erat. Nullam a ipsum lorem.
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header bg-secondary">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordiond2" aria-expanded="false">
-                            Secondary
-                        </button>
-                    </h2>
-                    <div id="accordiond2" class="accordion-collapse collapse" data-bs-parent="#accordionExample5" style="">
-                        <div class="accordion-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at augue eleifend,
-                            lacinia ex quis, condimentum erat. Nullam a ipsum lorem.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header bg-success">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordiond3" aria-expanded="false">
-                            Success
-                        </button>
-                    </h2>
-                    <div id="accordiond3" class="accordion-collapse collapse" data-bs-parent="#accordionExample5" style="">
-                        <div class="accordion-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at augue eleifend,
-                            lacinia ex quis, condimentum erat. Nullam a ipsum lorem.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header bg-danger">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordiond4" aria-expanded="false">
-                            Danger
-                        </button>
-                    </h2>
-                    <div id="accordiond4" class="accordion-collapse collapse" data-bs-parent="#accordionExample5" style="">
-                        <div class="accordion-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at augue eleifend,
-                            lacinia ex quis, condimentum erat. Nullam a ipsum lorem.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header bg-warning">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordiond5" aria-expanded="false">
-                            Warning
-                        </button>
-                    </h2>
-                    <div id="accordiond5" class="accordion-collapse collapse" data-bs-parent="#accordionExample5">
-                        <div class="accordion-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at augue eleifend,
-                            lacinia ex quis, condimentum erat. Nullam a ipsum lorem.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header bg-info">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordiond6" aria-expanded="false">
-                            Info
-                        </button>
-                    </h2>
-                    <div id="accordiond6" class="accordion-collapse collapse" data-bs-parent="#accordionExample5">
-                        <div class="accordion-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at augue eleifend,
-                            lacinia ex quis, condimentum erat. Nullam a ipsum lorem.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header bg-dark">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordiond7" aria-expanded="false">
-                            Dark
-                        </button>
-                    </h2>
-                    <div id="accordiond7" class="accordion-collapse collapse" data-bs-parent="#accordionExample5">
-                        <div class="accordion-body">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent at augue eleifend,
-                            lacinia ex quis, condimentum erat. Nullam a ipsum lorem.
-                        </div>
-                    </div>
-                </div>
+                </template>
             </div>
         </div>
 

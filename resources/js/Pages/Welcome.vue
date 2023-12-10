@@ -13,7 +13,9 @@ const props = defineProps({
     earning : Number,
     income : Number,
     withdraw : Number,
-    level : String,
+    level : {
+        type : Object,
+    },
     coinsMarkets : {
         type : Object,
     }
@@ -246,7 +248,7 @@ onMounted(() => {
                                 </div>
 
                                 <div class="form-group basic">
-                                    <label class="label">Enter Amount</label>
+                                    <label class="label">Enter Amount (USDT)</label>
                                     <div class="input-group mb-2">
                                         <span class="input-group-text" id="basic-addona1">$</span>
                                         <CurrencyInput class="form-control" :class="{ 'is-invalid': deposit.errors.amount }" v-model="deposit.amount" placeholder="Enter an amount" />
@@ -285,7 +287,7 @@ onMounted(() => {
                                 </div>
 
                                 <div class="form-group basic">
-                                    <label class="label">Enter Amount</label>
+                                    <label class="label">Enter Amount (USDT)</label>
                                     <div class="input-group mb-2">
                                         <span class="input-group-text" id="basic-addona1">$</span>
                                         <CurrencyInput class="form-control" :class="{ 'is-invalid': withdraw.errors.amount }" v-model="withdraw.amount" placeholder="Enter an amount" />
@@ -420,32 +422,34 @@ onMounted(() => {
         <div class="section pt-2">
             <div class="row mt-2">
                 <div class="col-6">
-                    <div class="stat-box">
+                    <div class="stat-box pb-4">
                         <div class="title">Income</div>
-                        <div class="value text-success">$ {{ formatCurrency(income) }}</div>
+                        <div class="value text-success mb-1">$ {{ formatCurrency(income) }}</div>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="stat-box">
+                    <div class="stat-box pb-4">
                         <div class="title">Withdraw</div>
-                        <div class="value text-danger">$ {{ formatCurrency(withdraw) }}</div>
+                        <div class="value text-danger mb-1">$ {{ formatCurrency(withdraw) }}</div>
                     </div>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-6">
                     <Link :href="route('level')">
-                        <div class="stat-box">
+                        <div class="stat-box pb-1">
                             <div class="title">Level</div>
-                            <div class="value text-warning">{{ level }}</div>
+                            <div class="value" :style="{ color: level.color }">{{ level.name }}</div>
+                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </Link>
                 </div>
                 <div class="col-6">
                     <Link :href="route('teams')">
-                        <div class="stat-box">
+                        <div class="stat-box pb-1">
                             <div class="title">Team</div>
                             <div class="value">{{ referallCount }}</div>
+                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </Link>
                 </div>
@@ -769,5 +773,15 @@ body.dark-mode .wallet-card {
 .wallet-card .wallet-footer {
     border-top: 0px;
     padding-top: 0px;
+}
+.small-box-footer {
+    /* background-color: rgba(0,0,0,.1); */
+    color: rgba(255,255,255,.8);
+    display: block;
+    padding: 3px 0;
+    position: relative;
+    text-align: right;
+    text-decoration: none;
+    z-index: 10;
 }
 </style>

@@ -213,6 +213,12 @@ onMounted(() => {
                     <strong>Amount</strong>
                     <h3 class="m-0">{{ formatCurrency(transaction.amount_float) }}</h3>
                 </li>
+                <template v-if="transaction.meta.txhash">
+                    <li>
+                        <strong>Thxhash</strong>
+                        <span>{{ transaction.meta.txhash }}</span>
+                    </li>
+                </template>
             </ul>
 
         </div>

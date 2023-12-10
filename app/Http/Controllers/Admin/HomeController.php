@@ -17,10 +17,12 @@ class HomeController extends Controller
     {
         $deposit  = Transaction::where('confirmed', 1)->where('meta->description', 'Deposit')->get();
         $withdraw = Transaction::where('confirmed', 1)->where('meta->description', 'Withdraw')->get();
+        $earning  = Transaction::where('confirmed', 1)->where('meta->description', 'Earning')->get();
 
         return Inertia::render('Admin/Dashboard', [
-            'deposit'  => $deposit->sum('amount'),
-            'withdraw' => $withdraw->sum('amount'),
+            'deposit'  => $deposit->sum('amount_float'),
+            'withdraw' => $withdraw->sum('amount_float'),
+            'earning'  => $earning->sum('amount_float'),
             'user'     => DB::table('users')->count()
         ]);
     }
@@ -54,6 +56,19 @@ class HomeController extends Controller
     {
         $uuid = $request->uuid;
         $transaction = Transaction::where('uuid', $uuid)->first();
+        if ($transaction->type == 'withdraw') {
+            $request->validate([
+                'txhash' => 'required',
+            ]);
+
+
+            $meta = $transaction->meta;
+            $meta['txhash'] = $request->txhash;
+            $transaction->update([
+                'meta' => $meta
+            ]);
+        }
+
         $transaction->wallet->confirm($transaction);
     }
 }

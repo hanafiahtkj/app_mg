@@ -12,6 +12,7 @@ use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Investment;
 use App\Models\InvestmentDuration;
+use App\Models\UserLevel;
 use DB;
 
 class LevelController extends Controller
@@ -25,7 +26,8 @@ class LevelController extends Controller
         return Inertia::render('Level', [
             'investments' => Investment::with('duration')->where('user_id', $user->id)->orderBy('id')->get(),
             'durations'   => InvestmentDuration::orderBy('id')->get(),
-            'level' => $user->level->name
+            'level' => $user->level->name,
+            'userLevels' => UserLevel::orderBy('level')->get(),
         ]);
     }
 }
