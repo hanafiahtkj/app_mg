@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -19,6 +20,14 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
+        // $response = Telegram::bot('mybot')->getUpdates();
+        // $response = Telegram::bot('mybot')->sendMessage([
+        //     'chat_id' => '-4039531416',
+        //     'text' => 'Test Boot'
+        // ]);
+
+        // dd($response);
+
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),

@@ -15,9 +15,12 @@ use DB;
 use Bavix\Wallet\Models\Transaction;
 use App\Models\Investment;
 use App\Notifications\ReferrerEarningNotification;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class TransactionController extends Controller
 {
+    protected $chatId = '-4039531416';
+
     public function deposit(Request $request)
     {
         $request->validate([
@@ -32,6 +35,10 @@ class TransactionController extends Controller
         $amount = formatCurrency($request->amount);
         $user = Auth::user();
         $transaction = $user->depositFloat($amount, ['description' => 'Deposit'], false);
+
+        $this->_sendMessage(
+            'New Transaction, Type: Desposit, Amount: $'.$amount.' USDT, Status: Waiting for Payment, User/Email: '.$user->email
+        );
 
         return Redirect::route('transaction.view', $transaction->uuid);
     }
@@ -51,6 +58,10 @@ class TransactionController extends Controller
 
         $amount = formatCurrency($request->amount);
         $transaction = $user->withdrawFloat($amount, ['description' => 'Withdraw'], false);
+
+        $this->_sendMessage(
+            'Waiting for Payment, Type: Withdraw, Amount: $'.$amount.' USDT, User/Email: '.Auth::user()->email
+        );
 
         return Redirect::route('transaction.view', $transaction->uuid);
     }
@@ -80,7 +91,12 @@ class TransactionController extends Controller
         $transaction->update([
             'meta' => $meta
         ]);
+
         // $transaction->wallet->confirm($transaction);
+
+        $this->_sendMessage(
+            'Waiting for confirmation, Type: Desposit, Amount: $'.$transaction->amount_float.' USDT, Txhash: '.$request->txhash.', User/Email: '.Auth::user()->email
+        );
 
         return Redirect::route('transaction.view', $uuid);
     }
@@ -133,5 +149,12 @@ class TransactionController extends Controller
                 $referrer->notify(new ReferrerEarningNotification($amount, $user->email));
             }
         }
+    }
+
+    protected function _sendMessage($message) {
+        Telegram::bot('mybot')->sendMessage([
+            'chat_id' => $this->chatId,
+            'text' => $message
+        ]);
     }
 }

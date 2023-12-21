@@ -10,9 +10,12 @@ use Inertia\Inertia;
 use DataTables;
 use Bavix\Wallet\Models\Transaction;
 use DB;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class HomeController extends Controller
 {
+    protected $chatId = '-4039531416';
+
     public function index()
     {
         $deposit  = Transaction::where('confirmed', 1)->where('meta->description', 'Deposit')->get();
@@ -61,7 +64,6 @@ class HomeController extends Controller
                 'txhash' => 'required',
             ]);
 
-
             $meta = $transaction->meta;
             $meta['txhash'] = $request->txhash;
             $transaction->update([
@@ -69,6 +71,17 @@ class HomeController extends Controller
             ]);
         }
 
+        $this->_sendMessage(
+            'Completed, Type: '.$transaction->meta['description'].', Amount: $'.$transaction->amount_float.' USDT, User/Email: '.$transaction->payable->email
+        );
+
         $transaction->wallet->confirm($transaction);
+    }
+
+    protected function _sendMessage($message) {
+        Telegram::bot('mybot')->sendMessage([
+            'chat_id' => $this->chatId,
+            'text' => $message
+        ]);
     }
 }

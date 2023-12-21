@@ -10,6 +10,7 @@
         "bavix/laravel-wallet": "^10.0",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.8",
+        "irazasyed/telegram-bot-sdk": "^3.13",
         "jijunair/laravel-referral": "^1.0",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
