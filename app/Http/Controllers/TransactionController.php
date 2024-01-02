@@ -126,6 +126,7 @@ class TransactionController extends Controller
 
         $request->validate([
             'investment_id' => 'required',
+            'is_completed'  => 'required',
         ]);
 
         $investment_id = $request->investment_id;
@@ -148,6 +149,15 @@ class TransactionController extends Controller
 
                 $referrer->notify(new ReferrerEarningNotification($amount, $user->email));
             }
+        }
+
+        if ($request->is_completed && $investment->can_claim_completed) {
+            $amount = formatCurrency($investment->amount);
+            $transaction = $user->depositFloat($amount, [
+                'description'   => 'Earning',
+                'investment_id' => $investment_id,
+                'is_completed'  => true,
+            ]);
         }
     }
 

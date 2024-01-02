@@ -52,9 +52,11 @@ function toastbox(target, time) {
 
 const form = useForm({
     investment_id: props.investment.id,
+    is_completed: false
 });
 
-const submit = () => {
+const submit = (is_completed) => {
+    form.is_completed = is_completed;
     form.post(route('transaction.claimEarning'), {
         onFinish: () => {
 
@@ -115,10 +117,15 @@ onMounted(() => {
         </div>
         <div class="right">
             <template v-if="investment.can_claim">
-                <button type="button" class="btn btn-outline-warning btn-lg" @click="submit">CLAIM ${{ formatCurrency(investment.daily_earning) }}</button>
+                <button type="button" class="btn btn-outline-warning btn-lg" @click="submit(false)">CLAIM ${{ formatCurrency(investment.daily_earning) }}</button>
+            </template>
+            <template v-else-if="investment.can_claim_completed">
+                <button type="button" class="btn btn-outline-warning btn-lg" @click="submit(true)">CLAIM ${{ formatCurrency(investment.amount) }}</button>
             </template>
             <template v-else>
-                <button type="button" class="btn btn-outline-secondary btn-lg" disabled>CLAIM ${{ formatCurrency(investment.daily_earning) }}</button>
+                <template v-if="investment.status == 'Active'">
+                    <button type="button" class="btn btn-outline-secondary btn-lg" disabled>CLAIM ${{ formatCurrency(investment.daily_earning) }}</button>
+                </template>
             </template>
         </div>
     </a>
