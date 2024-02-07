@@ -137,18 +137,6 @@ class TransactionController extends Controller
                 'description' => 'Earning',
                 'investment_id' => $investment_id,
             ]);
-
-            $referrer = $user->referralAccount->referrer;
-            if($referrer) {
-                $transaction = $referrer->depositFloat($amount, [
-                    'description' => 'Earning',
-                    'investment_id' => $investment_id,
-                    'referrer_earning' => true,
-                    'referral_user_id' => $user->id,
-                ]);
-
-                $referrer->notify(new ReferrerEarningNotification($amount, $user->email));
-            }
         }
 
         if ($request->is_completed && $investment->can_claim_completed) {
@@ -158,6 +146,19 @@ class TransactionController extends Controller
                 'investment_id' => $investment_id,
                 'is_completed'  => true,
             ]);
+
+            $referrer = $user->referralAccount->referrer;
+            if($referrer) {
+                $amount = formatCurrency($investment->amount / 0.10); // referrer dapat 10% dari jumlah total earning.
+                $transaction = $referrer->depositFloat($amount, [
+                    'description' => 'Earning',
+                    'investment_id' => $investment_id,
+                    'referrer_earning' => true,
+                    'referral_user_id' => $user->id,
+                ]);
+
+                $referrer->notify(new ReferrerEarningNotification($amount, $user->email));
+            }
         }
     }
 

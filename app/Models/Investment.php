@@ -38,8 +38,8 @@ class Investment extends Model
 
     public function getDailyEarningAttribute()
     {
-        // return $this->amount * $this->duration->earning_rate / $this->duration->name;
-        return formatCurrency($this->amount * $this->duration->earning_rate);
+        return formatCurrency(($this->amount * $this->duration->earning_rate) / $this->duration->name);
+        // return formatCurrency($this->amount * $this->duration->earning_rate);
     }
 
     public function hasEarningOnDate($date)
