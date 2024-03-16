@@ -37,7 +37,7 @@ class TransactionController extends Controller
         $transaction = $user->depositFloat($amount, ['description' => 'Deposit'], false);
 
         $this->_sendMessage(
-            'New Transaction, Type: Desposit, Amount: $'.$amount.' USDT, Status: Waiting for Payment, User/Email: '.$user->email
+            'New Transaction, Type: Deposit, Amount: $'.$amount.' USDT, Status: Waiting for Payment, User/Email: '.$user->email
         );
 
         return Redirect::route('transaction.view', $transaction->uuid);
@@ -95,7 +95,7 @@ class TransactionController extends Controller
         // $transaction->wallet->confirm($transaction);
 
         $this->_sendMessage(
-            'Waiting for confirmation, Type: Desposit, Amount: $'.$transaction->amount_float.' USDT, Txhash: '.$request->txhash.', User/Email: '.Auth::user()->email
+            'Waiting for confirmation, Type: Deposit, Amount: $'.$transaction->amount_float.' USDT, Txhash: '.$request->txhash.', User/Email: '.Auth::user()->email
         );
 
         return Redirect::route('transaction.view', $uuid);
