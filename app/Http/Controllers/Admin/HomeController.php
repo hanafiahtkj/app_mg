@@ -14,10 +14,13 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class HomeController extends Controller
 {
-    protected $chatId = '-4039531416';
+    protected $chatId = '-4198448403';
 
     public function index()
     {
+        // $response = Telegram::getUpdates();
+        // dd($response);
+
         $deposit  = Transaction::where('confirmed', 1)->where('meta->description', 'Deposit')->get();
         $withdraw = Transaction::where('confirmed', 1)->where('meta->description', 'Withdraw')->get();
         $earning  = Transaction::where('confirmed', 1)->where('meta->description', 'Earning')->get();

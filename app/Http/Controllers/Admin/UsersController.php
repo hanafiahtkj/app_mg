@@ -26,7 +26,14 @@ class UsersController extends Controller
     {
         $model = User::with('roles');
 
-        return DataTables::of($model)->toJson();
+        return DataTables::of($model)
+        ->addColumn('balance_float', function ($user) {
+            return $user->balanceFloat;
+        })
+        ->order(function ($query) {
+            $query->orderBy('id', 'desc');
+        })
+        ->toJson();
     }
 
     public function create()

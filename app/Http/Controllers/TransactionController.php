@@ -19,7 +19,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class TransactionController extends Controller
 {
-    protected $chatId = '-4039531416';
+    protected $chatId = '-4198448403';
 
     public function deposit(Request $request)
     {
@@ -117,7 +117,20 @@ class TransactionController extends Controller
 
         $amount = formatCurrency($request->amount);
         $duration = $request->duration;
-        $transaction = $user->startInvestment($amount, $duration);
+        $investment = $user->startInvestment($amount, $duration);
+
+        $referrer = $user->referralAccount->referrer;
+        if($referrer) {
+            $amount = formatCurrency($investment->amount * 0.10); // referrer dapat 10% dari jumlah total earning.
+            $transaction = $referrer->depositFloat($amount, [
+                'description' => 'Earning',
+                'investment_id' => $investment->id,
+                'referrer_earning' => true,
+                'referral_user_id' => $user->id,
+            ]);
+
+            $referrer->notify(new ReferrerEarningNotification($amount, $user->email));
+        }
     }
 
     public function claimEarning(Request $request)
@@ -147,18 +160,18 @@ class TransactionController extends Controller
                 'is_completed'  => true,
             ]);
 
-            $referrer = $user->referralAccount->referrer;
-            if($referrer) {
-                $amount = formatCurrency($investment->amount / 0.10); // referrer dapat 10% dari jumlah total earning.
-                $transaction = $referrer->depositFloat($amount, [
-                    'description' => 'Earning',
-                    'investment_id' => $investment_id,
-                    'referrer_earning' => true,
-                    'referral_user_id' => $user->id,
-                ]);
+            // $referrer = $user->referralAccount->referrer;
+            // if($referrer) {
+            //     $amount = formatCurrency($investment->amount * 0.10); // referrer dapat 10% dari jumlah total earning.
+            //     $transaction = $referrer->depositFloat($amount, [
+            //         'description' => 'Earning',
+            //         'investment_id' => $investment_id,
+            //         'referrer_earning' => true,
+            //         'referral_user_id' => $user->id,
+            //     ]);
 
-                $referrer->notify(new ReferrerEarningNotification($amount, $user->email));
-            }
+            //     $referrer->notify(new ReferrerEarningNotification($amount, $user->email));
+            // }
         }
     }
 

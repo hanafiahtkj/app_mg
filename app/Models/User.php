@@ -15,6 +15,7 @@ use Bavix\Wallet\Traits\HasWallet;
 use Bavix\Wallet\Interfaces\Wallet;
 use Bavix\Wallet\Traits\HasWalletFloat;
 use Bavix\Wallet\Interfaces\WalletFloat;
+use Jijunair\LaravelReferral\Models\Referral;
 
 class User extends Authenticatable implements LaratrustUser, MustVerifyEmail, Wallet, WalletFloat
 {
@@ -27,6 +28,7 @@ class User extends Authenticatable implements LaratrustUser, MustVerifyEmail, Wa
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
         'wallet_id',
@@ -95,5 +97,22 @@ class User extends Authenticatable implements LaratrustUser, MustVerifyEmail, Wa
             // Saldo tidak mencukupi
             throw new \Exception("Insufficient balance for investment.");
         }
+    }
+
+    public function createReferralAccount(int $referrerID = NULL)
+    {
+
+        $prefix = config('referral.ref_code_prefix');
+        $length = config('referral.referral_length');
+
+        // $referralCode = $this->generateUniqueReferralCode($prefix, $length);
+        $prefix = strtolower($prefix);
+        $referralCode = $prefix . strtolower($this->username);
+
+        $ref = new Referral;
+        $ref->user_id = $this->getKey();
+        $ref->referrer_id = $referrerID;
+        $ref->referral_code = $referralCode;
+        $ref->save();
     }
 }

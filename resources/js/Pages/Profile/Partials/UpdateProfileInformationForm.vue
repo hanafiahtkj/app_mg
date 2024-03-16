@@ -1,11 +1,11 @@
 <script setup>
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
-import Swal from 'sweetalert2'
-import { ref, reactive, onMounted, computed } from 'vue';
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Link, useForm, usePage } from "@inertiajs/vue3";
+import Swal from "sweetalert2";
+import { ref, reactive, onMounted, computed } from "vue";
 
 defineProps({
     mustVerifyEmail: {
@@ -21,42 +21,43 @@ let toastBoxes;
 
 const form = useForm({
     nama: user.email,
+    username: user.username,
     email: user.email,
-    wallet_id: user.wallet_id
+    wallet_id: user.wallet_id,
 });
 
 const submit = () => {
-    form.post(route('profile.update'), {
-        onFinish: () => {
-
+    form.post(route("profile.update"), {
+        onFinish: () => {},
+        onSuccess: () => {
+            toastbox("toast-success", 2000);
         },
-        onSuccess: () =>  {
-            toastbox('toast-success', 2000)
-        }
     });
 };
 
 function closeToastBox() {
     toastBoxes.forEach(function (el) {
-        el.classList.remove("show")
-    })
+        el.classList.remove("show");
+    });
 }
 function toastbox(target, time) {
     var a = document.getElementById(target);
-    closeToastBox()
+    closeToastBox();
     setTimeout(() => {
-        a.classList.add("show")
+        a.classList.add("show");
     }, 100);
     if (time) {
         time = time + 100;
         setTimeout(() => {
-            closeToastBox()
+            closeToastBox();
         }, time);
     }
 }
 
 onMounted(() => {
-    var toastCloseButton = document.querySelectorAll(".toast-box .close-button");
+    var toastCloseButton = document.querySelectorAll(
+        ".toast-box .close-button"
+    );
     var toastTaptoClose = document.querySelectorAll(".toast-box.tap-to-close");
     toastBoxes = document.querySelectorAll(".toast-box");
 
@@ -65,15 +66,15 @@ onMounted(() => {
         el.addEventListener("click", function (e) {
             e.preventDefault();
             closeToastBox();
-        })
-    })
+        });
+    });
     // tap to close toast
     toastTaptoClose.forEach(function (el) {
         el.addEventListener("click", function (e) {
             closeToastBox();
-        })
-    })
-})
+        });
+    });
+});
 </script>
 
 <template>
@@ -113,35 +114,78 @@ onMounted(() => {
     </section> -->
 
     <form @submit.prevent="submit" autocomplete="off" novalidate>
-        <div class="card" style="margin-left: 16px; margin-right: 16px;">
+        <div class="card" style="margin-left: 16px; margin-right: 16px">
             <div class="card-body pb-2">
+                Username and Email cannot be changed for security reasons.
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label class="label" for="username">Username</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="username"
+                            placeholder="Username"
+                            :class="{ 'is-invalid': form.errors.username }"
+                            v-model="form.username"
+                            disabled
+                        />
+                        <i class="clear-input">
+                            <ion-icon name="close-circle"></ion-icon>
+                        </i>
+                        <div class="invalid-feedback">
+                            {{ form.errors.username }}
+                        </div>
+                    </div>
+                </div>
 
                 <div class="form-group basic">
                     <div class="input-wrapper">
                         <label class="label" for="email1">E-mail</label>
-                        <input type="email" class="form-control" id="email1" placeholder="Your e-mail"
-                        :class="{ 'is-invalid': form.errors.email }" v-model="form.email" disabled>
+                        <input
+                            type="email"
+                            class="form-control"
+                            id="email1"
+                            placeholder="Your e-mail"
+                            :class="{ 'is-invalid': form.errors.email }"
+                            v-model="form.email"
+                            disabled
+                        />
                         <i class="clear-input">
                             <ion-icon name="close-circle"></ion-icon>
                         </i>
-                        <div class="invalid-feedback">{{ form.errors.email }}</div>
+                        <div class="invalid-feedback">
+                            {{ form.errors.email }}
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group basic">
                     <div class="input-wrapper">
                         <label class="label">Wallet Id (USDT Wallet)</label>
-                        <input type="text" class="form-control" placeholder="Kode Referal"
-                        :class="{ 'is-invalid': form.errors.wallet_id }" v-model="form.wallet_id">
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Kode Referal"
+                            :class="{ 'is-invalid': form.errors.wallet_id }"
+                            v-model="form.wallet_id"
+                        />
                         <i class="clear-input">
                             <ion-icon name="close-circle"></ion-icon>
                         </i>
-                        <div class="invalid-feedback">{{ form.errors.wallet_id }}</div>
+                        <div class="invalid-feedback">
+                            {{ form.errors.wallet_id }}
+                        </div>
                     </div>
                 </div>
 
                 <div class="transparent mt-4">
-                    <button type="submit" class="btn btn-secondary btn-block" :disabled="form.processing">Update Profile</button>
+                    <button
+                        type="submit"
+                        class="btn btn-secondary btn-block"
+                        :disabled="form.processing"
+                    >
+                        Update Profile
+                    </button>
                 </div>
             </div>
         </div>
@@ -150,9 +194,7 @@ onMounted(() => {
     <div id="toast-success" class="toast-box toast-center">
         <div class="in">
             <ion-icon name="checkmark-circle" class="text-success"></ion-icon>
-            <div class="text">
-                Update successful!
-            </div>
+            <div class="text">Update successful!</div>
         </div>
     </div>
 </template>
