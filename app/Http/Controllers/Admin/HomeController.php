@@ -14,7 +14,8 @@ use Telegram\Bot\Laravel\Facades\Telegram;
 
 class HomeController extends Controller
 {
-    protected $chatId = '-4198448403';
+    // protected $chatId = '-4198448403';
+    protected $chatId = '-4039531416';
 
     public function index()
     {
