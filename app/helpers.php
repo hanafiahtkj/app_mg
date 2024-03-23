@@ -1,6 +1,10 @@
 <?php
 
 function formatCurrency($value) {
+    return number_format((float)$value, 2, '.', '');
+}
+
+function formatCurrencyDisplay($value) {
     return number_format((float)$value, 2, '.', ',');
 }
 

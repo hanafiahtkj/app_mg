@@ -26,14 +26,14 @@ class ReferrerEarningNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'message' => "You have received earning of $this->amount from a referral with email $this->referralEmail!",
+            'message' => "You have received earning of ".formatCurrencyDisplay($this->amount)." from a referral with email $this->referralEmail!",
         ];
     }
 
     public function toArray($notifiable)
     {
         return [
-            'message' => "You have received earning of $this->amount from a referral with email $this->referralEmail!",
+            'message' => "You have received earning of ".formatCurrencyDisplay($this->amount)." from a referral with email $this->referralEmail!",
         ];
     }
 }

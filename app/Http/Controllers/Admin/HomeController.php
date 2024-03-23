@@ -75,7 +75,7 @@ class HomeController extends Controller
         }
 
         $this->_sendMessage(
-            'Completed, Type: '.$transaction->meta['description'].', Amount: $'.$transaction->amount_float.' USDT, User/Email: '.$transaction->payable->email
+            'Completed, Type: '.$transaction->meta['description'].', Amount: $'.formatCurrencyDisplay($transaction->amount_float).' USDT, User/Email: '.$transaction->payable->email
         );
 
         $transaction->wallet->confirm($transaction);
