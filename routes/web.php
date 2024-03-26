@@ -24,8 +24,10 @@ use Inertia\Inertia;
 |
 */
 
+Route::get('/', [HomeController::class, 'index'])->name('index');
+
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('index');
+    Route::get('home', [HomeController::class, 'home'])->name('home');
     Route::get('coins-markets', [HomeController::class, 'coinsMarkets'])->name('coins.markets');
     Route::get('history', [HistoryController::class, 'index'])->name('history');
     Route::get('notifications', [NotificationController::class, 'index'])->name('notifications');

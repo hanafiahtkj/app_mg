@@ -20,7 +20,17 @@ class HomeController extends Controller
     /**
      * Display the user's profile form.
      */
+
     public function index()
+    {
+        if (auth()->check()) {
+            return Redirect::route('home');
+        }
+
+        return Inertia::render('Landing', []);
+    }
+
+    public function home()
     {
         $user = Auth::user();
 
