@@ -253,8 +253,7 @@ onMounted(() => {
                         <div class="mb-3">
                             <img
                                 :src="
-                                    route('index') +
-                                    '/vendor/finapp/assets/img/sample/qr.png'
+                                    route('index') + '/assets/img/wallet-1.png'
                                 "
                                 alt="QR Code"
                                 class="imaged square w140"
@@ -262,11 +261,15 @@ onMounted(() => {
                         </div>
                         <h2 class="mb-2">Scan the QR Code</h2>
                         <p class="mb-2">
-                            9010001001234
+                            0x35133C0a5dc3e6af119AC15e3739E71E9f926B5F
                             <a
                                 href="javascript:void(0)"
                                 class="copy-button"
-                                @click="copyToClipboard('9010001001234')"
+                                @click="
+                                    copyToClipboard(
+                                        '0x35133C0a5dc3e6af119AC15e3739E71E9f926B5F'
+                                    )
+                                "
                                 ><ion-icon name="copy-outline"></ion-icon
                             ></a>
                         </p>
