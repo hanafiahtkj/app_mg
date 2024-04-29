@@ -82,6 +82,12 @@ const submitWithdraw = () => {
     });
 };
 
+const loadedImages = ref({});
+
+const handelLoadImage = (index) => {
+    loadedImages.value[index] = true;
+};
+
 onMounted(() => {
     console.log("balance", props.balance);
     // loadCoinsMarkets();
@@ -137,26 +143,58 @@ onMounted(() => {
 
     <!-- App Capsule -->
     <div id="appCapsule">
+        <!-- {{ loadedImages }} -->
         <!-- carousel slider -->
         <div class="carousel-slider splide">
             <div class="splide__track">
                 <ul class="splide__list">
                     <li class="splide__slide p-2">
+                        <div class="loading" v-if="loadedImages[1] !== true">
+                            <div
+                                class="spinner-border"
+                                style="width: 3rem; height: 3rem"
+                                role="status"
+                            >
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         <img
                             :src="route('index') + '/assets/img/slide/01.webp'"
                             alt="alt"
                             class="imaged w-100 square mb-4"
+                            loading="lazy"
+                            @load="handelLoadImage(1)"
                         />
                     </li>
                     <li class="splide__slide p-2">
+                        <div class="loading" v-if="loadedImages[2] !== true">
+                            <div
+                                class="spinner-border"
+                                style="width: 3rem; height: 3rem"
+                                role="status"
+                            >
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         <img
                             :src="route('index') + '/assets/img/slide/02.webp'"
                             alt="alt"
                             class="imaged w-100 square mb-4"
+                            loading="lazy"
+                            @load="handelLoadImage(2)"
                         />
                     </li>
                     <li class="splide__slide p-2">
                         <h2 class="mb-2">1. Login & Register</h2>
+                        <div class="loading" v-if="loadedImages[3] !== true">
+                            <div
+                                class="spinner-border"
+                                style="width: 3rem; height: 3rem"
+                                role="status"
+                            >
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         <img
                             :src="
                                 route('index') +
@@ -164,10 +202,21 @@ onMounted(() => {
                             "
                             alt="alt"
                             class="imaged w-100 square mb-4"
+                            loading="lazy"
+                            @load="handelLoadImage(3)"
                         />
                     </li>
                     <li class="splide__slide p-2">
                         <h2 class="mb-2">2. Basic Feature</h2>
+                        <div class="loading" v-if="loadedImages[4] !== true">
+                            <div
+                                class="spinner-border"
+                                style="width: 3rem; height: 3rem"
+                                role="status"
+                            >
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         <img
                             :src="
                                 route('index') +
@@ -175,11 +224,22 @@ onMounted(() => {
                             "
                             alt="alt"
                             class="imaged w-100 square mb-4"
+                            loading="lazy"
+                            @load="handelLoadImage(4)"
                         />
                     </li>
 
                     <li class="splide__slide p-2">
                         <h2 class="mb-2">3. Deposit</h2>
+                        <div class="loading" v-if="loadedImages[5] !== true">
+                            <div
+                                class="spinner-border"
+                                style="width: 3rem; height: 3rem"
+                                role="status"
+                            >
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         <img
                             :src="
                                 route('index') +
@@ -187,10 +247,21 @@ onMounted(() => {
                             "
                             alt="alt"
                             class="imaged w-100 square mb-4"
+                            loading="lazy"
+                            @load="handelLoadImage(5)"
                         />
                     </li>
                     <li class="splide__slide p-2">
                         <h2 class="mb-2">4. Investment</h2>
+                        <div class="loading" v-if="loadedImages[6] !== true">
+                            <div
+                                class="spinner-border"
+                                style="width: 3rem; height: 3rem"
+                                role="status"
+                            >
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         <img
                             :src="
                                 route('index') +
@@ -198,10 +269,21 @@ onMounted(() => {
                             "
                             alt="alt"
                             class="imaged w-100 square mb-4"
+                            loading="lazy"
+                            @load="handelLoadImage(6)"
                         />
                     </li>
                     <li class="splide__slide p-2">
                         <h2 class="mb-2">5. History and claim</h2>
+                        <div class="loading" v-if="loadedImages[7] !== true">
+                            <div
+                                class="spinner-border"
+                                style="width: 3rem; height: 3rem"
+                                role="status"
+                            >
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         <img
                             :src="
                                 route('index') +
@@ -209,10 +291,21 @@ onMounted(() => {
                             "
                             alt="alt"
                             class="imaged w-100 square mb-4"
+                            loading="lazy"
+                            @load="handelLoadImage(7)"
                         />
                     </li>
                     <li class="splide__slide p-2">
                         <h2 class="mb-2">6.Withdraw</h2>
+                        <div class="loading" v-if="loadedImages[8] !== true">
+                            <div
+                                class="spinner-border"
+                                style="width: 3rem; height: 3rem"
+                                role="status"
+                            >
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
                         <img
                             :src="
                                 route('index') +
@@ -220,6 +313,8 @@ onMounted(() => {
                             "
                             alt="alt"
                             class="imaged w-100 square mb-4"
+                            loading="lazy"
+                            @load="handelLoadImage(8)"
                         />
                     </li>
                 </ul>
@@ -288,5 +383,14 @@ body.dark-mode .wallet-card {
     text-align: right;
     text-decoration: none;
     z-index: 10;
+}
+.loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    /* justify-items: center; */
+    text-align: center;
+    justify-content: center;
 }
 </style>

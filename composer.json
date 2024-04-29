@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "barryvdh/laravel-dompdf": "^2.1",
         "based/momentum-modal": "^0.2.0",
         "bavix/laravel-wallet": "^10.0",
         "guzzlehttp/guzzle": "^7.2",
