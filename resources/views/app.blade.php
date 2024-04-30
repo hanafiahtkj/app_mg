@@ -8,20 +8,20 @@
 
         <!-- Meta SEO -->
         <meta name="title" content="{{ config('app.name', 'Laravel') }}">
-        <meta name="description" content="Sistem Informasi Deteksi Dini Kerawanan Hubungan Industrial Kabupaten Kotabaru.">
+        <meta name="description" content="Infinite Gold">
         <meta name="robots" content="index, follow">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="language" content="English">
         <meta name="author" content="Themesberg">
 
         <!-- Social media share -->
-        <meta property="og:title" content=Landwind - Tailwind CSS Landing Page>
-        <meta property="og:site_name" content=Themesberg>
+        <meta property="og:title" content=Infinite Gold>
+        <meta property="og:site_name" content=Infinite Gold>
         <meta property="og:url" content={{ route('index') }}/>
-        <meta property="og:description" content=Sistem Informasi Deteksi Dini Kerawanan Hubungan Industrial Kabupaten Kotabaru.>
+        <meta property="og:description" content=Infinite Gold>
         <meta property="og:type" content="">
         <meta property="og:image" content={{ asset('assets/img/Construction-cuate.png') }}>
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="Infinite Gold" />
         <meta name="twitter:site" content="@themesberg" />
         <meta name="twitter:creator" content="@themesberg" />
 
