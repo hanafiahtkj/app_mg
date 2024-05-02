@@ -12,7 +12,7 @@
         <meta name="robots" content="index, follow">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta name="language" content="English">
-        <meta name="author" content="Themesberg">
+        <meta name="author" content="Infinite Gold">
 
         <!-- Social media share -->
         <meta property="og:title" content=Infinite Gold>
@@ -22,8 +22,8 @@
         <meta property="og:type" content="">
         <meta property="og:image" content={{ asset('assets/img/Construction-cuate.png') }}>
         <meta name="twitter:card" content="Infinite Gold" />
-        <meta name="twitter:site" content="@themesberg" />
-        <meta name="twitter:creator" content="@themesberg" />
+        <meta name="twitter:site" content="Infinite Gold" />
+        <meta name="twitter:creator" content="Infinite Gold" />
 
         <link rel="shortcut icon" href="{{ asset('assets/img/logo.png') }}" type="image/x-icon">
         <!-- Fonts -->

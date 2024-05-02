@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Cookie;
 use App\Models\UserLevel;
 use App\Notifications\ReferralUsedNotification;
 use App\Notifications\LevelChangedNotification;
+use Carbon\Carbon;
 
 class RegisteredUserController extends Controller
 {
@@ -55,6 +56,9 @@ class RegisteredUserController extends Controller
             'wallet_id' => $request->wallet_id,
             'level_id' => 1,
         ]);
+
+        $user->forceFill(['email_verified_at' => Carbon::now()->toDateTimeString()]);
+        $user->save();
 
         $user->addRole('member');
 
