@@ -204,6 +204,7 @@ onMounted(() => {
                             class="imaged w-100 square mb-4"
                             loading="lazy"
                             @load="handelLoadImage(3)"
+                            style="border: 3px solid #fff"
                         />
                     </li>
                     <li class="splide__slide p-2">
@@ -226,6 +227,7 @@ onMounted(() => {
                             class="imaged w-100 square mb-4"
                             loading="lazy"
                             @load="handelLoadImage(4)"
+                            style="border: 3px solid #fff"
                         />
                     </li>
 
@@ -249,6 +251,7 @@ onMounted(() => {
                             class="imaged w-100 square mb-4"
                             loading="lazy"
                             @load="handelLoadImage(5)"
+                            style="border: 3px solid #fff"
                         />
                     </li>
                     <li class="splide__slide p-2">
@@ -271,6 +274,7 @@ onMounted(() => {
                             class="imaged w-100 square mb-4"
                             loading="lazy"
                             @load="handelLoadImage(6)"
+                            style="border: 3px solid #fff"
                         />
                     </li>
                     <li class="splide__slide p-2">
@@ -293,6 +297,7 @@ onMounted(() => {
                             class="imaged w-100 square mb-4"
                             loading="lazy"
                             @load="handelLoadImage(7)"
+                            style="border: 3px solid #fff"
                         />
                     </li>
                     <li class="splide__slide p-2">
@@ -315,6 +320,7 @@ onMounted(() => {
                             class="imaged w-100 square mb-4"
                             loading="lazy"
                             @load="handelLoadImage(8)"
+                            style="border: 3px solid #fff"
                         />
                     </li>
                 </ul>
@@ -327,7 +333,7 @@ onMounted(() => {
                 <div class="col-6">
                     <Link
                         :href="route('register')"
-                        class="btn btn-outline-secondary btn-lg btn-block"
+                        class="btn btn-light btn-lg btn-block"
                         >Register</Link
                     >
                 </div>
@@ -356,7 +362,7 @@ onMounted(() => {
 #appCapsule {
     padding-top: 20px;
     padding-bottom: 0px;
-    background-image: linear-gradient(-208deg, #4a2d02 38%, #8a69ff 100%);
+    background-image: linear-gradient(-208deg, #1f1524 38%, #8a69ff 100%);
 }
 
 .wallet-card .balance {
@@ -384,13 +390,32 @@ body.dark-mode .wallet-card {
     text-decoration: none;
     z-index: 10;
 }
-.loading {
+/* .loading {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
-    /* justify-items: center; */
+    justify-items: center;
     text-align: center;
     justify-content: center;
+} */
+.loading {
+    position: relative; /* Tetapkan posisi relatif pada elemen induk */
+    height: calc(100vh - 84px);
+}
+
+.loading .spinner-border {
+    position: absolute; /* Tetapkan posisi absolut pada spinner */
+    top: 50%; /* Geser ke atas sejauh 50% dari atas elemen induk */
+    left: 45%; /* Geser ke kiri sejauh 50% dari kiri elemen induk */
+}
+.carousel-button-footer {
+    background-image: linear-gradient(
+        182deg,
+        #21252900 38%,
+        #6c3e02 100%,
+        #6c3e02 100%,
+        #6c3e02 100%
+    );
 }
 </style>
